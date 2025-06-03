@@ -1,3 +1,6 @@
+import unittest
+
+
 class doulelink:
 
     class _node:
@@ -45,37 +48,28 @@ class doulelink:
             temp = temp.next
 
 
-if __name__ == "__main__":
-    dl = doulelink()
+class TestDoubleLink(unittest.TestCase):
+    def setUp(self):
+        # 每个 test 之前都会重新创建一个空链表
+        self.dl = doulelink()
 
-    print("Is empty?", dl.is_empty())  # True
+    def test_insert_and_len(self):
+        # 插入三个节点后长度应为 3
+        n1 = self.dl.insert_btw(self.dl.ptr_head, self.dl.ptr_tail, 10)
+        self.dl.insert_btw(n1,       self.dl.ptr_tail, 20)
+        self.dl.insert_btw(n1,       self.dl.ptr_tail, 30)
+        self.assertEqual(self.dl.len(), 3)
 
-    n1 = dl.insert_btw(dl.ptr_head, dl.ptr_tail, 10)
-    n2 = dl.insert_btw(n1, dl.ptr_tail, 20)
-    n3 = dl.insert_btw(n2, dl.ptr_tail, 30)
+    def test_delete(self):
+        # 插入后再删除，长度减少
+        n1 = self.dl.insert_btw(self.dl.ptr_head, self.dl.ptr_tail, 100)
+        self.dl.delete(n1)
+        self.assertEqual(self.dl.len(), 0)
 
-    print("Traverse forward:")
-    dl.traverse_forward()  # 10 20 30
+    def test_traverse_forward(self):
+        # 可进一步用断言替代 print，确保遍历结果正确
+        # …（需要返回列表或提供回调以便断言）
+        pass
 
-    print("Traverse backward:")
-    dl.traverse_back()     # 30 20 10
-
-    print("Length:", dl.len())  # 3
-
-    print("Deleting 20")
-    dl.delete(n2)
-
-    print("Traverse forward after deletion:")
-    dl.traverse_forward()  # 10 30
-
-    print("Traverse backward after deletion:")
-    dl.traverse_back()     # 30 10
-
-    print("Length:", dl.len())  # 2
-
-    print("Is empty?", dl.is_empty())  # False
-
-    dl.delete(n1)
-    dl.delete(n3)
-    print("Is empty after all deletions?", dl.is_empty())  # True
-
+if __name__ == '__main__':
+    unittest.main()

@@ -97,7 +97,6 @@ if __name__ == "__main__":
     s.push(10)
     s.push(20)
     s.push(30)
-
     print("Top:", s.peek())     # 30
     print("Pop:", s.pop())      # 30
     print("Top:", s.peek())     # 20
